@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2"
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+    <persistence-unit name="hello">
+        <properties>
+            <!-- 필수 속성 -->
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <property name="javax.persistence.jdbc.user" value="sa"/>
+            <property name="javax.persistence.jdbc.password" value=""/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/test"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+            <!-- 데이터베이스마다 다른 용어나 데이터타입명, 페이징들을 JPA가 번역해서 DB를 바꿔도 실행이 가능하게만들어준다. -->
+
+            <!-- 옵션 -->
+            <property name="hibernate.show_sql" value="true"/> <!--println 으로 쿼리를 보여줌-->
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.use_sql_comments" value="true"/>
+            <property name="hibernate.jdbc.batch_size" value="10"/>
+            <!--데이터베이스 스키마 자동생성은 테스트 할 떄 뺴곤 사용하지 않아야 한다.
+            운영DB를 drop하거나 alter해서 치명적인 상황을 만들 수 있기 떄문 create-drop, update, validate-->
+            <property name="hibernate.hbm2ddl.auto" value="create" />
+        </properties>
+    </persistence-unit>
+</persistence>
