@@ -15,13 +15,16 @@ public class Member {
     @JoinColumn(name = "TEAM_ID")
     private Team team;
 
-    public Team getTeam() {
-        return team;
-    }
+    @Enumerated(EnumType.STRING)
+    private MemberType type;
 
     public void changeTeam(Team team) {
         this.team = team;
         team.getMembers().add(this);
+    }
+
+    public Team getTeam() {
+        return team;
     }
 
     public void setTeam(Team team) {
@@ -50,6 +53,14 @@ public class Member {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public MemberType getType() {
+        return type;
+    }
+
+    public void setType(MemberType type) {
+        this.type = type;
     }
 
     @Override

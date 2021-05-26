@@ -1,2 +1,5 @@
-package jpql;public enum MemberType {
+package jpql;
+
+public enum MemberType {
+    ADMIN,USER
 }

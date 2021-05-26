@@ -14,34 +14,39 @@ public class JpaMain {
 
         try{
             Team team = new Team();
-            team.setName("namChulTeam");
+            team.setName("A");
             em.persist(team);
 
             Member member = new Member();
             member.setUsername("member");
             member.setAge(10);
             member.changeTeam(team);
+            member.setType(MemberType.ADMIN);
             em.persist(member);
 
             Member member2 = new Member();
-            member2.setUsername("namChul");
+            member2.setUsername("A");
             member2.setAge(28);
             member2.changeTeam(team);
             em.persist(member2);
 
             em.flush();
             em.clear();
-
-            String query = "select m from Member m inner join m.team t";
-            List<Member> resultList = em.createQuery(query, Member.class)
-                    .setFirstResult(0)  //(페이지값-1)*10 넣으면 10개씩 보여주는 페이지 될 듯
-                    .setMaxResults(10)
+            //Enum 타입은 패키지 경로도 다 입력해줘야함
+            //아니면 setParameter 에 셋팅
+            String query = "select m.username, 'HELLO', TRUE from Member m where " +
+                    "m.type = :userType";
+            List<Object[]> resultList = em.createQuery(query)
+                    .setParameter("userType",MemberType.ADMIN)
                     .getResultList();
 
-            for (Member members : resultList) {
-                System.out.println("member = " + members.toString());
+            for (Object[] objects : resultList) {
+                System.out.println("o[0] = " + objects[0]);
+                System.out.println("o[0] = " + objects[1]);
+                System.out.println("o[0] = " + objects[2]);
             }
-            
+
+
             tx.commit();
         }catch (Exception e){
             tx.rollback();
