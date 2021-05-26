@@ -58,7 +58,10 @@ public class JpaMain {
             // sql을 한 번에 조회 가능
             // join fetch 명령어 사용
             // 즉시로딩을 명시적으로 표현하는것과 비슷함
-            String query = "select m from Member m";
+            // 지연로딩으로 새로운 데이터를 가져올때마다 쿼리를 날리기 때문에 쿼리가 너무 많이 사용됨(fetch 사용x 일때)
+            // fetch : 조인해서 필요한 데이터를 한 번에 모두 가져온다.
+            // String query = "select m from Member m";
+            String query = "select m from Member m join fetch m.team t";
             List<Member> resultList = em.createQuery(query, Member.class)
                     .getResultList();
 
