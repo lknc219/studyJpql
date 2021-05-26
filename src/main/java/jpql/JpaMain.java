@@ -25,28 +25,29 @@ public class JpaMain {
             em.persist(member);
 
             Member member2 = new Member();
-            member2.setUsername("A");
+            member2.setUsername("관리자");
             member2.setAge(28);
             member2.changeTeam(team);
             em.persist(member2);
 
             em.flush();
             em.clear();
-            //Enum 타입은 패키지 경로도 다 입력해줘야함
-            //아니면 setParameter 에 셋팅
-            String query = "select m.username, 'HELLO', TRUE from Member m where " +
-                    "m.type = :userType";
-            List<Object[]> resultList = em.createQuery(query)
-                    .setParameter("userType",MemberType.ADMIN)
+
+           /* String query =
+                    "select " +
+                            "case when m.age <= 10 then '학생요금' " +
+                            "     when m.age >= 60 then '경로요금' "+
+                            "else '일반요금' " +
+                            "end "+
+                    "from Member m";*/
+//            String query = "select coalesce(m.username,'이름없는 회원') as username from Member m";
+            String query = "select nullif(m.username,'관리자') from Member m";
+            List<String> resultList = em.createQuery(query, String.class)
                     .getResultList();
 
-            for (Object[] objects : resultList) {
-                System.out.println("o[0] = " + objects[0]);
-                System.out.println("o[0] = " + objects[1]);
-                System.out.println("o[0] = " + objects[2]);
+            for (String s : resultList) {
+                System.out.println("이름 = " + s);
             }
-
-
             tx.commit();
         }catch (Exception e){
             tx.rollback();
