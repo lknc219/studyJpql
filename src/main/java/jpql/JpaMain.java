@@ -1,6 +1,7 @@
 package jpql;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.List;
 
 public class JpaMain {
@@ -32,21 +33,16 @@ public class JpaMain {
 
             em.flush();
             em.clear();
-
-//            String query = "select 'a' || 'b' from Member m";
-//            String query = "select concat('a','b') from Member m";
-//            String query = "select substring(m.username,2,3) from Member m";
-//            String query = "select locate('de','abcdefg') from Member m"; // locate의 시작은 1부터, 없으면 0반환
-//            String query = "select size(t.members) From Team t";
-
-//            String query = "select function('group_concat', m.username) From Member m";
-            String query = "select group_concat(m.username) From Member m";
+            // 경로 표현시 .(점)을 찍어 그래프를 탐색하는 것
+            // 상태필드는 더 이상 경로탐색이 안됨 상태필드 (m.username)
+            // 묵시적 조인은 사용하지 말고 명시적 조인만 사용할 것
+            // String query = "select m.team From Member m";
+            // String query = "select t.members.size From Team t";
+            String query = "select m.username From Team t join t.members m,";
             List<String> resultList = em.createQuery(query, String.class)
                     .getResultList();
+            System.out.println("result = " + resultList);
 
-            for (String s : resultList) {
-                System.out.println("이름 = " + s);
-            }
             tx.commit();
         }catch (Exception e){
             tx.rollback();
