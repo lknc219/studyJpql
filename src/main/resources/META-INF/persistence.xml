@@ -9,7 +9,8 @@
             <property name="javax.persistence.jdbc.user" value="sa"/>
             <property name="javax.persistence.jdbc.password" value=""/>
             <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/test"/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+            <!-- <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/> -->
+            <property name="hibernate.dialect" value="dialect.MyH2Dialect"/>
             <!-- 데이터베이스마다 다른 용어나 데이터타입명, 페이징들을 JPA가 번역해서 DB를 바꿔도 실행이 가능하게만들어준다. -->
 
             <!-- 옵션 -->

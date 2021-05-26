@@ -33,15 +33,14 @@ public class JpaMain {
             em.flush();
             em.clear();
 
-           /* String query =
-                    "select " +
-                            "case when m.age <= 10 then '학생요금' " +
-                            "     when m.age >= 60 then '경로요금' "+
-                            "else '일반요금' " +
-                            "end "+
-                    "from Member m";*/
-//            String query = "select coalesce(m.username,'이름없는 회원') as username from Member m";
-            String query = "select nullif(m.username,'관리자') from Member m";
+//            String query = "select 'a' || 'b' from Member m";
+//            String query = "select concat('a','b') from Member m";
+//            String query = "select substring(m.username,2,3) from Member m";
+//            String query = "select locate('de','abcdefg') from Member m"; // locate의 시작은 1부터, 없으면 0반환
+//            String query = "select size(t.members) From Team t";
+
+//            String query = "select function('group_concat', m.username) From Member m";
+            String query = "select group_concat(m.username) From Member m";
             List<String> resultList = em.createQuery(query, String.class)
                     .getResultList();
 
