@@ -21,6 +21,7 @@
             <!--데이터베이스 스키마 자동생성은 테스트 할 떄 뺴곤 사용하지 않아야 한다.
             운영DB를 drop하거나 alter해서 치명적인 상황을 만들 수 있기 떄문 create-drop, update, validate-->
             <property name="hibernate.hbm2ddl.auto" value="create" />
+            <property name="hibernate.default.batch_fetch_size" value="100"/>
         </properties>
     </persistence-unit>
 </persistence>
